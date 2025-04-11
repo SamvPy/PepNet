@@ -10,7 +10,7 @@ import tensorflow as tf
 import tensorflow.keras as k
 from tensorflow_addons.layers import InstanceNormalization
 
-from utils import *
+from .utils import *
 
 
 print(tf.__version__, tf.config.list_physical_devices('GPU'))
@@ -31,12 +31,13 @@ def read_mgf(data, count=-1, default_charge=-1):
         else:
             c = int(str(param['charge'][0])[0])
 
-        if 'seq' in param:
-            pep = param['seq'].strip()
-        elif 'title' in param:
+        # This is the evil code!!!
+        if 'title' in param:
             pep = param['title'].strip()
+        elif 'scans' in param:
+            pep = param['scans'].strip()
         else:
-            pep = ''
+            raise ReferenceError("No title or scans field in the MGF. This is required to traceback output to raw data!")
 
         if 'pepmass' in param:
             mass = param['pepmass'][0]
@@ -67,7 +68,7 @@ def read_mgf(data, count=-1, default_charge=-1):
     return spectra
 
 # post correction step
-def post_correction(matrix, mass, c, ppm=10):
+def post_correction(matrix, mass, c, ppm=50):
     positional_score = np.max(matrix, axis=-1)
     seq = decode(matrix)
     pep = topep(seq)

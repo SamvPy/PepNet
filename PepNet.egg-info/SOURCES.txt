@@ -1,0 +1,9 @@
+setup.py
+PepNet/__init__.py
+PepNet/denovo.py
+PepNet/train.py
+PepNet/utils.py
+PepNet.egg-info/PKG-INFO
+PepNet.egg-info/SOURCES.txt
+PepNet.egg-info/dependency_links.txt
+PepNet.egg-info/top_level.txt

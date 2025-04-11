@@ -24,7 +24,8 @@ def clipn(*kw, sigma=4):
 
 
 def fastmass(pep, ion_type, charge, mod=None, cam=True):
-    base = mass.fast_mass(pep, ion_type=ion_type, charge=charge)
+    base = mass.fast_mass(
+        pep, ion_type=ion_type, charge=charge, aa_mass=mono)
 
     if cam:
         base += 57.021 * pep.count('C') / charge
@@ -70,7 +71,7 @@ def ppm(m1, m2):
 mono = {"G": 57.021464, "A": 71.037114, "S": 87.032029, "P": 97.052764, "V": 99.068414, "T": 101.04768,
         "C": 160.03019, "L": 113.08406, "I": 113.08406, "D": 115.02694, "Q": 128.05858, "K": 128.09496,
         "E": 129.04259, "M": 131.04048, "H": 137.05891, "F": 147.06441, "R": 156.10111,
-        "Y": 163.06333, "N": 114.04293, "W": 186.07931, "O": 147.03538, "Z": 147.0354,  # oxidaed M
+        "Y": 163.06333, "N": 114.04293, "W": 186.07931, "O": 237.14773, "Z": 147.0354,  # oxidaed M
         }
 mono = {k: v for k, v in sorted(mono.items(), key=lambda item: item[1])}
 
